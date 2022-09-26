@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-    GuruController
+    GuruController,
+    KelasController,
+    MapelController,
+    SiswaController
 };
 
 /*
@@ -23,3 +26,14 @@ Route::get('/', function () {
 // route guru
 
 Route::resource('/guru', GuruController::class);
+
+
+// route kelas
+Route::resource('/kelas', KelasController::class);
+
+// route mapel
+Route::resource('/mapel', MapelController::class);
+
+// route siswa
+Route::resource('/siswa', SiswaController::class);
+

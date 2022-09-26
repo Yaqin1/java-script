@@ -36,7 +36,7 @@
 
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('kelas.index') }}" class="nav-link">
                         <i class="fas fa-chalkboard-teacher"></i>
                         <p>
                              Kelas
@@ -44,7 +44,7 @@
                     </a>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('mapel.index') }}" class="nav-link">
                         <i class="fas fa-bible"></i>
                         <p>
                             Mapel
@@ -52,7 +52,7 @@
                     </a>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('siswa.index') }}" class="nav-link">
                         <i class="fas fa-user-graduate"></i>
                         <p>
                              Siswa
