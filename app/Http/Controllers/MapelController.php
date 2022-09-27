@@ -19,6 +19,16 @@ class MapelController extends Controller
         return view('mapel.index', compact('mapel'));
     }
 
+    public function data()
+    {
+        $mapel = Mapel::orderBy('id','desc')->get();
+
+        return datatables()
+            ->of($mapel)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -62,9 +72,10 @@ class MapelController extends Controller
      * @param  \App\Models\mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function show(mapel $mapel)
+    public function show($id)
     {
-        //
+        $mapel = Mapel::find($id);
+        return response()->json($mapel);
     }
 
     /**
@@ -85,9 +96,13 @@ class MapelController extends Controller
      * @param  \App\Models\mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, mapel $mapel)
+    public function update(Request $request, mapel $id)
     {
-        //
+        $mapel = Mapel::find($id);
+        $mapel->nama = $request->nama;
+        $mapel->update();
+
+        return response()->json('Data Berhasil Disimpan');
     }
 
     /**
@@ -96,8 +111,11 @@ class MapelController extends Controller
      * @param  \App\Models\mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(mapel $mapel)
+    public function destroy($id)
     {
-        //
+        $mapel = Mapel::find($id);
+        $mapel->delete();
+
+        return response()->json(null, 204);
     }
 }

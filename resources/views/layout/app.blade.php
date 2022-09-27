@@ -14,9 +14,16 @@
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="{{ asset('asset/css/adminlte.min.css') }}">
-</head>
+        
+        <link rel="stylesheet" href="{{ asset('asset/css/adminlte.min.css') }}">
+    </head>
+    
+    <link rel="stylesheet" href="{{ asset('asset/datatable/buttons.bootstrap4.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('asset/datatable/dataTables.bootstrap4.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('asset/datatable/responsive.bootstrap4.min.css') }}">
+    
 <body class="hold-transition sidebar-mini">
 
     <div class="wrapper">
@@ -88,6 +95,16 @@
     <script src="{{ asset ('asset/js/bootstrap.bundle.min.js') }} "></script>
 
     <script src="{{ asset ('asset/js/adminlte.min.js') }} "></script>
+
+<!-- datatable -->
+    <script src="{{ asset ('asset/datatable/dataTables.bootstrap4.min.js') }} "></script>
+
+    <script src="{{ asset ('asset/datatable/dataTables.responsive.min.js') }} "></script>
+
+    <script src="{{ asset ('asset/datatable/jquery.dataTables.min.js') }} "></script>
+
+    <script src="{{ asset ('asset/datatable/responsive.bootstrap4.min.js') }} "></script>
+
 
     @stack('script')
 

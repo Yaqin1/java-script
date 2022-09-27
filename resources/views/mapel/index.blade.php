@@ -50,9 +50,9 @@ Mapel
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->nama}}</td>
                         <td>
-                            <button onclick="editData()" class="btn btn-flat btn-xs btn-warning"><i
-                                    class="fa fa-edit"></i></button>
-                            <a href="#" class="btn btn-flat btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            <button onclick="editData('{{ route('mapel.update', $item->id)}} ')"
+                                class="btn btn-flat btn-xs btn-warning"><i class="fa fa-edit"></i></button>
+                            <button onclick="deleteData('{{ route('mapel.destroy', $item->id)}} ')" class="btn btn-flat btn-xs btn-danger"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                     @endforeach
@@ -69,6 +69,13 @@ Mapel
 
 @push('script')
 <script>
+
+    let table;
+
+    $(function() {
+        table=$('.table').DataTable();
+    })
+    
     $('#modalForm').on('submit', function (e) {
         if (!e.preventDefault()) {
             $.post($('#modalForm form').attr('action'), $('#modalForm form').serialize())
@@ -76,7 +83,7 @@ Mapel
                     $('#modalForm').modal('hide');
                 })
                 .fail((errors) => {
-                alert('Tidak Dapat Menyimpan Data');
+                    alert('Tidak Dapat Menyimpan Data');
                     return;
                 })
         }
@@ -90,9 +97,40 @@ Mapel
         $('#modalForm [name=_method]').val('post');
     }
 
-    function editData() {
+    function editData(url) {
         $('#modalForm').modal('show');
         $('#modalForm .modal-title').text('Edit Data Mapel');
+
+        $('#modalForm form')[0].reset();
+        $('#modalForm form').attr('action', url);
+        $('#modalForm form [nama=_method]').val('put');
+
+        $.get(url)
+            .done((response) => {
+                $('#modalForm [name=nama]').val(response.nama);
+            })
+
+            .fail((errors) => {
+                alert('Tidak Dapat Menampilkan Data');
+                return;
+            })
+    }
+
+    function deleteData(url) {
+        if(confirm('Yakin Akan Menghapus Data?')){
+            $.post(url, {
+                '_token': $('[name=csrf-token]').attr('content'),
+                '_method':'delete'
+            })
+            .done((response) =>{
+                alert('Data Berhasil Dihapus');
+                return;
+            })
+            .fail((errors) =>{
+                alert('Data Gagal Dihapus!');
+                return;
+            })
+        }
     }
 </script>
 @endpush
