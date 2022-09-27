@@ -50,7 +50,8 @@ Mapel
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->nama}}</td>
                         <td>
-                            <button onclick="editData()" class="btn btn-flat btn-xs btn-warning"><i class="fa fa-edit"></i></button>
+                            <button onclick="editData()" class="btn btn-flat btn-xs btn-warning"><i
+                                    class="fa fa-edit"></i></button>
                             <a href="#" class="btn btn-flat btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
@@ -68,12 +69,28 @@ Mapel
 
 @push('script')
 <script>
-    function addForm(url){
+    $('#modalForm').on('submit', function (e) {
+        if (!e.preventDefault()) {
+            $.post($('#modalForm form').attr('action'), $('#modalForm form').serialize())
+                .done((response) => {
+                    $('#modalForm').modal('hide');
+                })
+                .fail((errors) => {
+                alert('Tidak Dapat Menyimpan Data');
+                    return;
+                })
+        }
+    })
+
+    function addForm(url) {
         $('#modalForm').modal('show');
         $('#modalForm .modal-title').text('Tambah Data Mapel');
+
+        $('#modalForm form').attr('action', url);
+        $('#modalForm [name=_method]').val('post');
     }
 
-    function editData(){
+    function editData() {
         $('#modalForm').modal('show');
         $('#modalForm .modal-title').text('Edit Data Mapel');
     }

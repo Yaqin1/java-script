@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\mapel;
 use Illuminate\Http\Request;
+use Validator;
 
 class MapelController extends Controller
 {
@@ -36,7 +37,23 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama'=>'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors(), 422);
+        }
+
+        $mapel = Mapel::create([
+            'nama'=> $request->nama
+        ]);
+
+        return response()->json([
+            'success'=> true,
+            'message'=> 'Data Berhasil Disimpan',
+            'data'=> $mapel
+        ]);
     }
 
     /**
