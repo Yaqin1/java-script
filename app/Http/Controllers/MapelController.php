@@ -108,7 +108,7 @@ class MapelController extends Controller
      * @param  \App\Models\mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, mapel $id)
+    public function update(Request $request, $id)
     {
         $mapel = Mapel::find($id);
         $mapel->nama = $request->nama;

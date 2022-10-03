@@ -17,7 +17,7 @@
 
                 <li class="nav-header">DASHBOARD</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link {{ request()->is('dashboard*') ? 'active' : ''}}">
                     <i class="fas fa-compass"></i>
                         <p>
                             Dashboard
@@ -27,7 +27,7 @@
 
                 <li class="nav-header">MASTER</li>
                 <li class="nav-item">
-                    <a href="{{ route('guru.index') }}" class="nav-link">
+                    <a href="{{ route('guru.index') }}" class="nav-link {{ request()->is('guru*') ? 'active' : ''}}">
                         <i class="fa fa-user-tie"></i>
                         <p>
                              Guru
@@ -36,7 +36,7 @@
 
 
                 <li class="nav-item">
-                    <a href="{{ route('kelas.index') }}" class="nav-link">
+                    <a href="{{ route('kelas.index') }}" class="nav-link {{ request()->is('kelas*') ? 'active' : ''}}">
                         <i class="fas fa-chalkboard-teacher"></i>
                         <p>
                              Kelas
@@ -44,7 +44,7 @@
                     </a>
 
                 <li class="nav-item">
-                    <a href="{{ route('mapel.index') }}" class="nav-link">
+                    <a href="{{ route('mapel.index') }}" class="nav-link {{ request()->is('mapel*') ? 'active' : ''}}">
                         <i class="fas fa-bible"></i>
                         <p>
                             Mapel
@@ -52,7 +52,7 @@
                     </a>
 
                 <li class="nav-item">
-                    <a href="{{ route('siswa.index') }}" class="nav-link">
+                    <a href="{{ route('siswa.index') }}" class="nav-link {{ request()->is('siswa*') ? 'active' : ''}}">
                         <i class="fas fa-user-graduate"></i>
                         <p>
                              Siswa

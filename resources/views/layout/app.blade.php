@@ -15,7 +15,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <!-- izitoast -->
-        <link rel="stylesheet" href="{{ asset('asset/izitoas/iziToast.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('asset/izitoast/iziToast.min.css') }}">
 
         
         <link rel="stylesheet" href="{{ asset('asset/css/adminlte.min.css') }}">
@@ -112,7 +112,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- izitoas -->
-    <script src="{{ asset ('/asset/izitoas/iziToast.min.js') }} "></script>
+    <script src="{{ asset ('/asset/izitoast/iziToast.min.js') }} "></script>
 
     @stack('script')
 

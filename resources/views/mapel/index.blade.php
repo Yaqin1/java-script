@@ -84,10 +84,18 @@ Mapel
                 .done((response) => {
                     $('#modalForm').modal('hide');
                     table.ajax.reload();
+                    iziToast.success({
+                    title: 'sukses',
+                    message: 'Data Berhasil Disimpan',
+                    position: 'topRight'
+                    })
                 })
                 .fail((errors) => {
-                    alert('Tidak Dapat Menyimpan Data');
-                    return;
+                    iziToast.error({
+                    title: 'error',
+                    message: 'Data gagal disimpan',
+                    position: 'topRight'
+                    })
                 })
         }
     })
@@ -113,7 +121,6 @@ Mapel
             .done((response) => {
                 $('#modalForm [name=nama]').val(response.nama);
             })
-
             .fail((errors) => {
                 alert('Tidak Dapat Menampilkan Data');
                 return;
