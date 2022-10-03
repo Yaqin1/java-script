@@ -14,6 +14,9 @@
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+        <!-- izitoast -->
+        <link rel="stylesheet" href="{{ asset('asset/izitoas/iziToast.min.css') }}">
+
         
         <link rel="stylesheet" href="{{ asset('asset/css/adminlte.min.css') }}">
     </head>
@@ -97,14 +100,19 @@
     <script src="{{ asset ('asset/js/adminlte.min.js') }} "></script>
 
 <!-- datatable -->
-    <script src="{{ asset ('asset/datatable/dataTables.bootstrap4.min.js') }} "></script>
+    <script src="{{ asset ('/asset/datatable/dataTables.bootstrap4.min.js') }} "></script>
 
-    <script src="{{ asset ('asset/datatable/dataTables.responsive.min.js') }} "></script>
+    <script src="{{ asset ('/asset/datatable/dataTables.responsive.min.js') }} "></script>
 
-    <script src="{{ asset ('asset/datatable/jquery.dataTables.min.js') }} "></script>
+    <script src="{{ asset ('/asset/datatable/jquery.dataTables.min.js') }} "></script>
 
-    <script src="{{ asset ('asset/datatable/responsive.bootstrap4.min.js') }} "></script>
+    <script src="{{ asset ('/asset/datatable/responsive.bootstrap4.min.js') }} "></script>
 
+    <!-- sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- izitoas -->
+    <script src="{{ asset ('/asset/izitoas/iziToast.min.js') }} "></script>
 
     @stack('script')
 

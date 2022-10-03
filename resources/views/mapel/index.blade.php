@@ -35,7 +35,7 @@ Mapel
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-hover text-nowrap">
+            <table class="table table-hover text-nowrap" style="width: 100%">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -44,24 +44,11 @@ Mapel
                     </tr>
 
                 </thead>
-                <tbody>
-                    @foreach ($mapel as $item)
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item->nama}}</td>
-                        <td>
-                            <button onclick="editData('{{ route('mapel.update', $item->id)}} ')"
-                                class="btn btn-flat btn-xs btn-warning"><i class="fa fa-edit"></i></button>
-                            <button onclick="deleteData('{{ route('mapel.destroy', $item->id)}} ')" class="btn btn-flat btn-xs btn-danger"><i class="fa fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    @endforeach
-
-                </tbody>
             </table>
         </div>
 
     </div>
+
 
 </section>
 @includeIf('mapel.form')
@@ -69,18 +56,34 @@ Mapel
 
 @push('script')
 <script>
-
     let table;
 
-    $(function() {
-        table=$('.table').DataTable();
+    $(function () {
+        table = $('.table').DataTable({
+            processing: true,
+            autowitdh: false,
+            ajax: {
+                url: '{{ route('mapel.data') }}'
+            },
+            columns: [{
+                    data: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama'
+                },
+                {
+                    data: 'aksi'
+                }
+            ]
+        });
     })
-    
+
     $('#modalForm').on('submit', function (e) {
         if (!e.preventDefault()) {
             $.post($('#modalForm form').attr('action'), $('#modalForm form').serialize())
                 .done((response) => {
                     $('#modalForm').modal('hide');
+                    table.ajax.reload();
                 })
                 .fail((errors) => {
                     alert('Tidak Dapat Menyimpan Data');
@@ -93,6 +96,7 @@ Mapel
         $('#modalForm').modal('show');
         $('#modalForm .modal-title').text('Tambah Data Mapel');
 
+        $('#modalForm form')[0].reset();
         $('#modalForm form').attr('action', url);
         $('#modalForm [name=_method]').val('post');
     }
@@ -117,20 +121,39 @@ Mapel
     }
 
     function deleteData(url) {
-        if(confirm('Yakin Akan Menghapus Data?')){
-            $.post(url, {
-                '_token': $('[name=csrf-token]').attr('content'),
-                '_method':'delete'
+
+        swal({
+                title: "Yakin ingin menghapus Data Ini?",
+                text: "jika Anda klik ok! Maka Data akan Terhapus",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             })
-            .done((response) =>{
-                alert('Data Berhasil Dihapus');
-                return;
-            })
-            .fail((errors) =>{
-                alert('Data Gagal Dihapus!');
-                return;
-            })
-        }
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.post(url, {
+                            '_token': $('[name=csrf-token]').attr('content'),
+                            '_method': 'delete'
+                        })
+                        .done((response) => {
+                            swal({
+                                title: "Sukses",
+                                icon: "success",
+                                text: "Data Berhasil Dihapus",
+                            });
+                            return;
+                        })
+                        .fail((errors) => {
+                            swal({
+                                title: "Gagal",
+                                icon: "error",
+                                text: "Data Gagal Dihapus",
+                            });
+                            return;
+                        })
+                    table.ajax.reload();
+                }
+            });
     }
 </script>
 @endpush
