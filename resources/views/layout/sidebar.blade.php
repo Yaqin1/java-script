@@ -8,7 +8,7 @@
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">Ahmad Nur Yaqin</a>
+                <a href="#" class="d-block">{{Auth()->user()->name}}</a>
             </div>
         </div>
 
@@ -45,7 +45,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('mapel.index') }}" class="nav-link {{ request()->is('mapel*') ? 'active' : ''}}">
-                        <i class="fas fa-bible"></i>
+                    <i class="fas fa-book-open"></i>
                         <p>
                             Mapel
                         </p>
