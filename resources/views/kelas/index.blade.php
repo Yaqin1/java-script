@@ -15,7 +15,7 @@ Kelas
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">kelas</li>
+                    <li class="breadcrumb-item active">Kelas</li>
                 </ol>
             </div>
         </div>
@@ -35,7 +35,7 @@ Kelas
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-hover text-nowrap">
+            <table class="table table-hover text-nowrap" style="width: 100%">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -44,23 +44,11 @@ Kelas
                     </tr>
 
                 </thead>
-                <tbody>
-                    @foreach ($kelas as $item)
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item->nama}}</td>
-                        <td>
-                            <button onclick="editData()" class="btn btn-flat btn-xs btn-warning"><i class="fa fa-edit"></i></button>
-                            <a href="#" class="btn btn-flat btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-
-                </tbody>
-            </table>
-        </div>
-
+            </div>
+        </table>
+            
     </div>
+
 
 </section>
 @includeIf('kelas.form')
@@ -68,14 +56,111 @@ Kelas
 
 @push('script')
 <script>
-    function addForm(url){
+    let table;
+
+    $(function () {
+        table = $('.table').DataTable({
+            processing: true,
+            autowitdh: false,
+            ajax: {
+                url: '{{ route('kelas.data') }}'
+            },
+            columns: [{
+                    data: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama'
+                },
+                {
+                    data: 'aksi'
+                }
+            ]
+        });
+    })
+
+    $('#modalForm').on('submit', function (e) {
+        if (!e.preventDefault()) {
+            $.post($('#modalForm form').attr('action'), $('#modalForm form').serialize())
+                .done((response) => {
+                    $('#modalForm').modal('hide');
+                    table.ajax.reload();
+                    iziToast.success({
+                    title: 'sukses',
+                    message: 'Data Berhasil Disimpan',
+                    position: 'topRight'
+                    })
+                })
+                .fail((errors) => {
+                    iziToast.error({
+                    title: 'error',
+                    message: 'Data gagal disimpan',
+                    position: 'topRight'
+                    })
+                })
+        }
+    })
+
+    function addForm(url) {
         $('#modalForm').modal('show');
         $('#modalForm .modal-title').text('Tambah Data Kelas');
+
+        $('#modalForm form')[0].reset();
+        $('#modalForm form').attr('action', url);
+        $('#modalForm [name=_method]').val('post');
     }
 
-    function editData(){
+    function editData(url) {
         $('#modalForm').modal('show');
         $('#modalForm .modal-title').text('Edit Data Kelas');
+
+        $('#modalForm form')[0].reset();
+        $('#modalForm form').attr('action', url);
+        $('#modalForm form [nama=_method]').val('put');
+
+        $.get(url)
+            .done((response) => {
+                $('#modalForm [name=nama]').val(response.nama);
+            })
+            .fail((errors) => {
+                alert('Tidak Dapat Menampilkan Data');
+                return;
+            })
+    }
+
+    function deleteData(url) {
+
+        swal({
+                title: "Yakin ingin menghapus Data Ini?",
+                text: "jika Anda klik ok! Maka Data akan Terhapus",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.post(url, {
+                            '_token': $('[name=csrf-token]').attr('content'),
+                            '_method': 'delete'
+                        })
+                        .done((response) => {
+                            swal({
+                                title: "Sukses",
+                                icon: "success",
+                                text: "Data Berhasil Dihapus",
+                            });
+                            return;
+                        })
+                        .fail((errors) => {
+                            swal({
+                                title: "Gagal",
+                                icon: "error",
+                                text: "Data Gagal Dihapus",
+                            });
+                            return;
+                        })
+                    table.ajax.reload();
+                }
+            });
     }
 </script>
 @endpush

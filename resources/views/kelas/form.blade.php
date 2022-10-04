@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalForm" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog"
-data-backdrop="static" data-keyboard="false">
+    data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content bg-secondary">
             <div class="modal-header">
@@ -9,13 +9,21 @@ data-backdrop="static" data-keyboard="false">
                 </button>
             </div>
             <div class="modal-body">
-                <p>. . .</p>
+
+                <form action="" method="POST">
+
+                    @csrf
+                    @method('PUT')
+
+                    <div class="from-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" name="nama" id="nama">
+                    </div>
+                    <button type="submit" class="btn btn-success btn-flat btn-sm">Save changes</button>
+                </form>
             </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light">Save changes</button>
-            </div>
+            
         </div>
 
     </div>
-
 </div>

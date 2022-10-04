@@ -17,7 +17,7 @@
 
                 <li class="nav-header">DASHBOARD</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('dashboard*') ? 'active' : ''}}">
+                    <a href="{{ route('dashboard.index') }}" class="nav-link {{ request()->is('dashboard*') ? 'active' : ''}}">
                     <i class="fas fa-compass"></i>
                         <p>
                             Dashboard
