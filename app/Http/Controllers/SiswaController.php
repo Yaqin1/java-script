@@ -7,6 +7,8 @@ use App\Models\Kelas;
 use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Validator;
+use App\Models\user;
+use Str;
 
 class SiswaController extends Controller
 {
@@ -83,6 +85,15 @@ class SiswaController extends Controller
         'mapel_id' => $request->mapel_id,
         'kelas_id' => $request->mapel_id
        ]);
+
+       $user= new User;
+       $user->role = 'siswa';
+       $user->name = $siswa->nama;
+       $user->email = $request->email;
+       $user->password = bcrypt('rahasia');
+       $user->remember_token = Str::random(20);
+       $user->save();
+
 
        return response()->json([
         'success' => true,

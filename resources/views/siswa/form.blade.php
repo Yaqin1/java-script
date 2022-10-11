@@ -20,6 +20,11 @@ data-backdrop="static" data-keyboard="false">
                     </div>
 
                     <div class="form-group">
+                        <label for="email">email</label>
+                        <input type="email" class="form-control" name="email" id="email">
+                    </div>
+
+                    <div class="form-group">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
                         <select name="jenis_kelamin" id="jenis_kelamin" id="jenis_kelamin" class="form-control">
                             <option value="Laki-Laki">Laki-Laki</option>
