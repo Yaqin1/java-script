@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('title')
-    Dashboard
+Dashboard
 @endsection
 
 @section('content')
@@ -9,6 +9,7 @@
 <section class="content-header">
 
     <div class="row">
+        @if(auth()->user()->role == 'admin')
         <div class="col-lg-3 col-6">
 
             <div class="small-box bg-info">
@@ -19,7 +20,8 @@
                 <div class="icon">
                     <i class="nav-icon fas fa-user-tie"></i>
                 </div>
-                <a href="{{ route ('guru.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route ('guru.index') }}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
@@ -33,7 +35,8 @@
                 <div class="icon">
                     <i class="nav-icon fas fa-chalkboard"></i>
                 </div>
-                <a href="{{ route ('kelas.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route ('kelas.index') }}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
@@ -47,7 +50,8 @@
                 <div class="icon">
                     <i class="nav-icon fas fa-book"></i>
                 </div>
-                <a href="{{ route ('mapel.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route ('mapel.index') }}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
@@ -59,15 +63,36 @@
                     <p>Data Siswa</p>
                 </div>
                 <div class="icon">
-                <i class="nav-icon fas fa-user-graduate"></i>
+                    <i class="nav-icon fas fa-user-graduate"></i>
                 </div>
-                <a href="{{ route ('siswa.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route ('siswa.index') }}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endif
 
+        @if(auth()->user()->role == 'siswa')
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text_primary">
+                        {{ !empty(auth()->user()->name) ? (auth()->user()->name) : '' }}
+                    </h3>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Mata Pelajaran</td>
+                            <td>Guru</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    @endif
+</section>
+
 
 @endsection
-
-
-

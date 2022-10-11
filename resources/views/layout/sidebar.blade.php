@@ -25,6 +25,7 @@
                     </a>
 
 
+                @if(auth()->user()->role== 'admin')
                 <li class="nav-header">MASTER</li>
                 <li class="nav-item">
                     <a href="{{ route('guru.index') }}" class="nav-link {{ request()->is('guru*') ? 'active' : ''}}">
@@ -58,6 +59,9 @@
                              Siswa
                         </p>
                     </a>
+</li>
+@endif
+</ul>
 
         </nav>
 
