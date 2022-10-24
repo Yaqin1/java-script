@@ -18,7 +18,7 @@ class DashboardController extends Controller
 
         $id_siswa = auth()->user()->id;
 
-        $find_siswa = Siswa::where('user_id');
-        return view ('dashboard.index', compact('guru','kelas','mapel','siswa'));
+        $find_siswa = Siswa::where('user_id',$id_siswa)->get();
+        return view ('dashboard.index', compact('guru','kelas','mapel','siswa','find_siswa'));
     }
 }
