@@ -82,10 +82,20 @@ Dashboard
 
                 <div class="card-body">
                     <table class="table table-bordered">
-                        <tr>
-                            <td>Mata Pelajaran</td>
-                            <td>Guru</td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <td>Mata Pelajaran</td>
+                                <td>Guru</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($find_siswa as $item)
+                            <tr>
+                                <td>{{$item->mapel->nama}}</td>
+                                <td>{{$item->kelas->nama}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>

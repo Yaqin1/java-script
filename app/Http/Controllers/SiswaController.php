@@ -26,16 +26,20 @@ class SiswaController extends Controller
     }
 
     public function data(){
-        $siswa = siswa::orderBy('id', 'desc')->get();
+        $siswa = siswa::orderBy('id', 'asc')->get();
 
         return datatables()
         ->of($siswa)
         ->addIndexColumn()
-        ->addColumn('mapel_id', function($siswa){
-            return !empty($siswa->mapel->nama) ? $siswa->mapel->nama : 'BELUM DI ISI';
+        ->editColumn('nama', function($siswa){
+            return '
+            <a href="/profile/'.$siswa->id.'">'.$siswa->nama.'</a>
+            ';
         })
-        ->addColumn('kelas_id', function($siswa){
-            return !empty($siswa->kelas->nama) ? $siswa->kelas->nama : 'BELUM DI ISI';
+    
+    ->addColumn('mapel_id', function($siswa){
+        return !empty($siswa->mapel->nama) ? $siswa->mapel->nama : 'BELUM DI ISI';
+
         })
         ->addColumn('aksi', function($siswa){
             return
